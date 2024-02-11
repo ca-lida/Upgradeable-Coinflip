@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.23;
 
 // code from openzeppelin
 
@@ -8,10 +8,6 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 //import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 error SeedTooShort();
-
-/// @title Upgradeable Coinflip 10 in a Row - v1
-/// @author Calida
-/// @notice Contract used as part of the course Solidity and Smart Contract development
 
 /// @title Coinflip Upgradeable 10 in a Row
 /// @author  Calida

@@ -7,12 +7,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 error SeedTooShort();
 
-/// @title Upgradeable Coinflip 10 in a Row - v1
-/// @author Calida
-/// @notice Contract used as part of the course Solidity and Smart Contract development
-
 /// @title Coinflip Upgradeable v2 10 in a Row with Seed Rotation
-/// @author Tianchan Dong - amended by Calida
+/// @author Calida
 /// @notice Contract used as part of the course Solidity and Smart Contract development
 contract CoinflipV2 is Initializable, OwnableUpgradeable, UUPSUpgradeable{
     
@@ -62,8 +58,14 @@ contract CoinflipV2 is Initializable, OwnableUpgradeable, UUPSUpgradeable{
         if (seedlength < 10){
             revert SeedTooShort();
         }
+        //setting empty rotated bytes array - cannot set at the start because you need to know the length
+        bytes memory NewerSeed = new bytes(seedlength);
+        // rotate the seed by 5 characters
+        for(uint i = 0; i < seedlength ; i++){
+            NewerSeed[i] = stringInBytes[(i+5) % seedlength];
+        }
         //TODO: Set the seed variable as the NewSeed
-        seed = NewSeed;
+        seed = string(NewerSeed);
     }
 
 // -------------------- helper functions -------------------- //
