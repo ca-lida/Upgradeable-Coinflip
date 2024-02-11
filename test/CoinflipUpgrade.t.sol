@@ -4,13 +4,12 @@ pragma solidity ^0.8.23;
 import {Test, console2} from "forge-std/Test.sol";
 import {Coinflip} from "../src/Coinflip.sol";
 import {CoinflipV2} from "../src/CoinflipV2.sol";
-import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
-
+import {UUPSProxy} from "../src/Proxy.sol";
 
 contract CoinflipUpgradeTest is Test {
     Coinflip public game;
     CoinflipV2 public gameV2;
-    ERC1967Proxy public proxy;
+    UUPSProxy public proxy;
 
     Coinflip public wrappedV1;
     CoinflipV2 public wrappedV2;
@@ -26,7 +25,7 @@ contract CoinflipUpgradeTest is Test {
         gameV2 = new CoinflipV2();
         
         // Launch the proxy with V1 implementation
-        proxy = new ERC1967Proxy(address(game), abi.encodeWithSignature("initialize(address)", owner));
+        proxy = new UUPSProxy(address(game), abi.encodeWithSignature("initialize(address)", owner));
 
         // We need to cheat here a litte because the coin flip game is not deployed and the proxy
         // will not know how to access the game unless wrapped. 
